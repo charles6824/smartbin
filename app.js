@@ -15,7 +15,7 @@ const uuid = require("uuid")
 
 const admin = require('firebase-admin')
 
-var serviceAccount = require("C:/Users/DELL/Desktop/waste/finalbin-35e3c-firebase-adminsdk-32b1k-9a255e76db.json");
+var serviceAccount = require("./finalbin.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://finalbin-35e3c-default-rtdb.firebaseio.com"
