@@ -15,7 +15,7 @@ const uuid = require("uuid")
 
 const admin = require('firebase-admin')
 
-var serviceAccount = require("./finalbin.json");
+var serviceAccount = require("./finalbin");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://finalbin-35e3c-default-rtdb.firebaseio.com"
