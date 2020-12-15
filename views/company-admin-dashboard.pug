@@ -1,0 +1,27 @@
+include includes/header.pug
+block content
+    link(rel='stylesheet' , href='/stylesheets/dashboard.css')
+    script(async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap")
+    body
+        div(id="wrapper")
+            include includes/sidenav.pug
+            div(id="content-wrapper" class="d-flex flex-column")
+                div(id="content")
+                    include includes/usernav.pug
+                    div(class="container")
+                        h5 Overview
+
+                        div(class="row")
+                            div(class="col-lg-4 col-md-6 mb-3")
+                                div(class="card stat-box")
+                                    p.total Total Bins
+                                    div(class="d-flex justify-content-between")
+                                        p(class="number") #{bins}
+                                        p(class="icon") 
+                                            i(class="fa fa-bar-chart")
+                                            i(class="fa fa-bar-chart")
+                                            i(class="fa fa-bar-chart")
+  
+        include includes/footer.pug
+
+

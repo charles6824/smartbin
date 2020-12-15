@@ -1,0 +1,45 @@
+include includes/header.pug
+block content
+    script(async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0Li1yNhH_sq_woxAAww5Iwg4OVCIegDE&callback=initMap")
+    link(rel='stylesheet' , href='/stylesheets/dashboard.css')
+    
+    body
+        div(id="wrapper")
+            include includes/sidenav.pug
+            div(id="content-wrapper" class="d-flex flex-column")
+                div(id="content")
+                    include includes/usernav.pug
+                    div(class="container")
+
+                        div(class="row justify-content-center mt-4")
+                            div(class="col-md-10")
+                                if noBin
+                                    p #{noBin}
+                                    a(href="/company/create-bin" class="btn main-btn") Create A Bin
+                                if bins
+                                    a(href="/company/create-bin" class="btn main-btn mb-2") Create New Bin
+                                    div(class="table-responsive form-body card")
+                                        table(class="table table-bordered" id="dataTable")
+                                            thead.thead-light
+                                                tr
+                                                    th Bin Name
+                                                    th Level
+                                                    th Gps 
+                                                    th Action
+                                            tbody
+                                                each bin in bins
+                                                    - let name = `${bin}`
+                                                    - let level = bin.Level
+                                                    - let gps = bin.gps
+                                                    - let gprs = gps.split(',')
+                                                    - let gprd = gprs[0]
+                                                    - let gprr = gprs[1]
+                                                    - let url = '/company/bin/' + bin._id
+                                                    tr
+                                                        td #{name}
+                                                        td #{level}
+                                                        td #{gprd} , #{gprr}
+                                                        td #[a(href=url class="main-link") View]
+        script(src="/javascripts/bin.js" type="module")
+        
+        

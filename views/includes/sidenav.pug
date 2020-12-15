@@ -1,0 +1,57 @@
+block content
+    ul(class="navbar-nav sidebar accordion" id="accordionSidebar")
+        span(class="sidebar-brand")
+            div(class="sidebar-brand-text") 
+                span(class="logo") SMART BIN
+                span(class="text-center d-none d-md-inline bar")
+                    i(class="fa fa-bars" id="sidebarToggle")
+        if admin
+            li(class="nav-item")
+                a(class=`nav-link ${dash_active}` href="/admin/dashboard")
+                    i(class="fa fa-fw fa-folder")
+                    span Dashboard
+        
+            li(class="nav-item")
+                a(class=`nav-link ${new_active}` href="/admin/new-companys")
+                    i(class="fa fa-fw fa-folder")
+                    span New Companies
+
+            li(class="nav-item")
+                a(class=`nav-link ${approved_active}` href="/admin/approved-companys")
+                    i(class="fa fa-fw fa-folder")
+                    span Approved Companies
+
+            li(class="nav-item")
+                a(class="nav-link" href="#")
+                    i(class="fa fa-fw fa-folder")
+                    span Mail
+
+        if companyAdmin
+            li(class="nav-item")
+                a(class=`nav-link ${dash_active}` href="/company/dashboard")
+                    i(class="fa fa-fw fa-folder")
+                    span Dashboard
+
+            li(class="nav-item")
+                a(class=`nav-link ${profile_active}` href="/company/profile")
+                    i(class="fa fa-fw fa-folder")
+                    span Profile
+
+            li(class="nav-item")
+                a(class=`nav-link ${bin_active}` href="/company/bin")
+                    i(class="fa fa-fw fa-folder")
+                    span Bins
+
+            li(class="nav-item")
+                a(class=`nav-link ${track_active}` href="#")
+                    i(class="fa fa-fw fa-folder")
+                    span Track Bins
+
+            li(class="nav-item")
+                a(class=`nav-link ${track_active}` href="/company/logout")
+                    i(class="fa fa-fw fa-folder")
+                    span Logout
+
+        hr(class="sidebar-divider")
+
+         

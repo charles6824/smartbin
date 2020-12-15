@@ -1,0 +1,38 @@
+include includes/header.pug
+block content
+    link(rel='stylesheet' , href='/stylesheets/dashboard.css')
+    body
+        div(id="wrapper")
+            include includes/sidenav.pug
+            div(id="content-wrapper" class="d-flex flex-column")
+                div(id="content")
+                    include includes/usernav.pug
+                    div(class="container")
+                        h5 New Companies
+
+                        div(class="row justify-content-center mt-4")
+                            div(class="col-md-10")
+                                if noCompany
+                                    p #{noCompany}
+                                if newCompanys
+                                    div(class="table-responsive form-body card")
+                                        table(class="table table-bordered" id="dataTable")
+                                            thead.thead-light
+                                                tr
+                                                    th Company Name
+                                                    th Email
+                                                    th Mobile Number
+                                                    th Action
+                                            tbody
+                                                each company in newCompanys
+                                                    - let name = company.companyName
+                                                    - let email = company.companyEmail
+                                                    - let number = company.companyNumber
+                                                    - let viewUrl = "/admin/company/" + company._id 
+                                                    tr
+                                                        td #{name}
+                                                        td #{email}
+                                                        td #{number}
+                                                        td #[a(href=viewUrl class="main-link") View]
+
+        include includes/footer.pug

@@ -1,0 +1,27 @@
+include includes/header.pug
+block content
+    link(rel='stylesheet' , href='/stylesheets/dashboard.css')
+    body
+        div(id="wrapper")
+            include includes/sidenav.pug
+            div(id="content-wrapper" class="d-flex flex-column")
+                div(id="content")
+                    include includes/usernav.pug
+                    div(class="container")
+                        .row.justify-content-center
+                            .col-md-11
+                                div(class="card")
+                                    div(class="card-header")
+                                        p(class="card-title") Input your #[strong Bin_ID] to Add a bin
+                                    div(class="card-body")
+                                    
+                                        p #{message}
+                                        form(action="", method="post" class="form-field")
+                                            .row
+                                                div(class="col-md-12")
+                                                    label(class="label") Bin ID
+                                                    input(type="text", name="name" class="form-control")
+                                                div(class="col-md-6")
+                                                    button(type="submit").btn.main-btn.mt-3.pl-5.pr-5 Add Bin
+  
+        include includes/footer.pug
