@@ -10,8 +10,10 @@ const bcrypt = require('bcryptjs')
 const CompanyAdmin = require('../model/companyAdmin')
 const Bin = require('../model/bin')
 const admin = require('firebase-admin')
+const bin = require('../model/bin')
 const database = admin.database()
 const binRef = database.ref('/bins')
+
 
 
 class App {
@@ -107,10 +109,13 @@ class App {
         try{
             if(req.session.companyCode){
                 const companyAdmin = await CompanyAdmin.findOne({companyCode : req.session.companyCode})
-                const bin = await Bin.find({company : companyAdmin._id})
-    
-                res.render('company-admin-dashboard' , { title  : "Smart Bin - CompanyAdmin", companyAdmin : companyAdmin, bins : bin.length,
-                 dash_active : "active"})
+                 let allBin = binRef.orderByKey().on('value', snapshot =>{
+                    console.log(snapshot.val())
+                    if(snapshot.val().length != 0){
+                        res.render('company-admin-dashboard' , { title  : "Smart Bin - CompanyAdmin", companyAdmin : companyAdmin, bins : bin.length,
+                        dash_active : "active"})
+                    }
+                })
             }else{
                 res.redirect(303, '/company/login')
             }
@@ -125,7 +130,6 @@ class App {
                 let allBin = binRef.orderByKey().on('value', snapshot =>{
                     console.log(snapshot.val())
                     if(snapshot.val().length != 0){
-                        console.log(snapshot.val())
                         res.render('bin', {title: "Smart Bin - List Of Bins",companyAdmin: companyAdmin, bins: snapshot.val(), bin_active : "active"})
                     }else{
                         res.render('bin', {title: "Smart Bin - List Of Bins", companyAdmin: companyAdmin, noBin: "You Haven't Created any bin yet", bin_active : "active"})
@@ -138,82 +142,22 @@ class App {
             res.render('error-page', {error : err})
         }
     }
-    // getBin = async (req, res, next) =>{
-    //     try{
-    //         if(req.session.companyCode){
-    //             const companyAdmin = await CompanyAdmin.findOne({companyCode : req.session.companyCode})
-    //             const bin = await Bin.find({company : companyAdmin._id})
-    //             if(bin.length != 0){
-    //                 res.render('bin', {title: "Smart Bin - List Of Bins", companyAdmin: companyAdmin, bins: bin, bin_active : "active"})
-    //             }
-    //             else{
-    //                 res.render('bin', {title: "Smart Bin - List Of Bins", companyAdmin: companyAdmin, noBin: "You Haven't Created any bin yet", bin_active : "active"})
-    //             }
-    //         }
-    //         else{
-    //             res.redirect(303, '/company/login')
-    //         }
-    //     }
-    //     catch(err){
-    //         res.render('error-page', {error : err})
-    //     }
-    // }
-    
-    // getCreateBin = async (req, res, next) =>{
-    //     try{
-    //         if(req.session.companyCode){
-    //             const companyAdmin = await CompanyAdmin.findOne({companyCode : req.session.companyCode})
-    //             const bin = await Bin.find({company : companyAdmin._id})
-    //                 res.render('create-bin', {title: "Smart Bin - Create Bins", companyAdmin: companyAdmin, bins: bin, bin_active : "active"})
-                
-    //          } else{
-    //             res.redirect(303, '/company/login')
-    //         }
-    //     }
-    //     catch(err){
-    //         res.render('error-page', {error : err})
-    //     }
-
-        
-    // }
-    // postCreateBin = async (req, res, next) =>{
-    //     try{
-    //         if(req.session.companyCode){
-    //             const companyAdmin = await CompanyAdmin.findOne({companyCode : req.session.companyCode})
-
-    //             const {name,level, gps} = req.body
-    //             const bin = await new Bin({
-    //                 name : name,
-    //                 company : companyAdmin._id,
-    //                 gps : gps,
-    //                 level : level
-    //             })
-    //             const saveBin = await bin.save()
-    //             if ( saveBin ) { 
-    //                 let redirectUrl = "/company/bin/"
-    //                 res.redirect(303, redirectUrl)
-    //                 return 
-    //             }else {
-    //                 throw {
-    //                     message : "Unable to save the Bin to the Database."
-    //                 }
-    //                 return 
-    //           }   
-    //     }else{
-    //         res.redirect(303, '/company/login')
-    //     }
-    // }
-    //     catch(err){
-    //         res.render('error-page', {error : err})
-    //     }
-    // }
-
     getSingleBin = async (req , res , next) => {
         try{
             if(req.session.companyCode){
                 const companyAdmin = await CompanyAdmin.findOne({companyCode : req.session.companyCode})
-                let allBin = binRef.orderByChild('bin_id').on('value', snapshot =>{
-                    res.render('single-bin', {companyAdmin : companyAdmin, title : "Smart Bin - Single Bin", bin : snapshot.val(), success : req.flash('success')})
+                
+                let allBin = binRef.orderByValue().on('value', snapshot =>{
+                    snapshot.forEach(
+                        function(ChildSnapshot){
+                            let id = ChildSnapshot.key
+                            let name = ChildSnapshot.val().name
+                            let level = ChildSnapshot.val().Level
+                            let gps = ChildSnapshot.val().gps 
+                            let gpsr = gps.split(',')
+                        res.render('single-bin', {companyAdmin : companyAdmin, title : "Smart Bin - Single Bin", id:id, name: name,lat:gpsr[0], lng:gpsr[1], level: level, success : req.flash('success')})
+                    })
+                    
                 })
                 
                 

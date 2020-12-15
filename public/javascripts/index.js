@@ -1,19 +1,21 @@
+// let getMap = document.getElementById('getMap')
+// let getLoc = getMap.innerHTML
+// let LatMap = getLoc.split(',')
+// let lat= letMap[0]
+// let lng= letMap[1]
+// const gpsd = {lat: `${lat}`, lng: `${lng}`}
+// const map = new google.maps.Map(document.getElementById("map"), {center: gpsd, zoom: 10,})
+// const marker = new google.maps.Marker({
+//     position: gpsd,
+//     map: map,
+// })
 
-function initMap(){
-  const gps = {lat: 40.700802, lng: 73.987602}
-  const map = new google.maps.Map(document.getElementById("map"), {center: gps, zoom: 10,})
-  const marker = new google.maps.Marker({
-    position: gps,
+const gpsd = {lat: 9.008, lng: 23.095}
+const map = new google.maps.Map(document.getElementById("map"), {center: gpsd, zoom: 10,})
+const marker = new google.maps.Marker({
+    position: gpsd,
     map: map,
-  })
-  console.log(gps)
-}
-let level, gps
-function Ready(){
-  level = document.getElementById('level').value
-  gps = document.getElementById('gps').value
-}
-document.getElementById('insert').onclick = function(){
-  Ready()
-  firebase.database().ref('bins/')
-}
+})
+
+let getMap = document.getElementById('level')
+let getsMap = document.getElementById('rain')

@@ -11,10 +11,12 @@ block content
                     div(class="container")
                         .row
                             .col-md-4
-                                p Name: #[span#bin #{bin.name} ]
-                                p Level: #{bin.Level}
-                                p GPS:   #{bin.gprs} 
+                                p ID: #[span #{id} ]
+                                p Name: #[span #{name} ]
+                                p#level Level: #{level}
+                                p GPS:   #{lat}, #{lng} 
                             .col-md-8
-                                #map
-    include includes/footer.pug
-    script(src="/javascripts/bin.js" type="module")
+                                div#map
+                                p#rain
+        include includes/footer.pug
+        script(src="/javascripts/bin.js" type="module")

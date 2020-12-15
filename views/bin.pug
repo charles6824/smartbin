@@ -28,18 +28,18 @@ block content
                                                     th Action
                                             tbody
                                                 each bin in bins
-                                                    - let name = `${bin}`
+                                                    - let name = bin.name
                                                     - let level = bin.Level
                                                     - let gps = bin.gps
-                                                    - let gprs = gps.split(',')
-                                                    - let gprd = gprs[0]
-                                                    - let gprr = gprs[1]
-                                                    - let url = '/company/bin/' + bin._id
+                                                    
+                                                    - let url = '/company/bin/' + name
                                                     tr
                                                         td #{name}
                                                         td #{level}
-                                                        td #{gprd} , #{gprr}
+                                                        td #{gps} 
                                                         td #[a(href=url class="main-link") View]
+        include includes/footer.pug
         script(src="/javascripts/bin.js" type="module")
+        
         
         
