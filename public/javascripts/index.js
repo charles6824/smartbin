@@ -2,7 +2,7 @@ let lat = document.getElementById('lat').value
 let lon = document.getElementById('lng').value
 let level = document.getElementById('level').value
 let levelx = document.getElementById('level')
-if(level = 3){
+if(level == 3){
   levelx.style.backgroundColor = "red"
   levelx.style.color = "white"
   levelx.style.fontWeight = "bold"
@@ -13,8 +13,13 @@ if(level = 3){
                 MESSAGE: Your Waste Bin is full and Ready for Disposal
           `)
 }
-else if(level = 2){
+else if(level == 2){
   levelx.style.backgroundColor = "yellow"
+  levelx.style.fontWeight = "bold"
+}
+else{
+  levelx.style.backgroundColor = "lavender"
+  levelx.style.color = "black"
   levelx.style.fontWeight = "bold"
 }
 //initialize map
