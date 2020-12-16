@@ -109,7 +109,7 @@ class App {
         try{
             if(req.session.companyCode){
                 const companyAdmin = await CompanyAdmin.findOne({companyCode : req.session.companyCode})
-                 let allBin = binRef.orderByKey().on('value', snapshot =>{
+                 let allBin = binRef.orderByKey().once('value', snapshot =>{
                     console.log(snapshot.val())
                     if(snapshot.val().length != 0){
                         res.render('company-admin-dashboard' , { title  : "Smart Bin - CompanyAdmin", companyAdmin : companyAdmin, bins : bin.length,
@@ -127,7 +127,7 @@ class App {
         try{
             if(req.session.companyCode){
                 const companyAdmin = await CompanyAdmin.findOne({companyCode : req.session.companyCode})
-                let allBin = binRef.orderByKey().on('value', snapshot =>{
+                let allBin = binRef.orderByKey().once('value', snapshot =>{
                     console.log(snapshot.val())
                     if(snapshot.val().length != 0){
                         res.render('bin', {title: "Smart Bin - List Of Bins",companyAdmin: companyAdmin, bins: snapshot.val(), bin_active : "active"})
@@ -146,7 +146,7 @@ class App {
         try{
             if(req.session.companyCode){
                 const companyAdmin = await CompanyAdmin.findOne({companyCode : req.session.companyCode})
-                let allBin = binRef.orderByChild('name').equalTo(req.params.binID).on('value', snapshot =>{
+                let allBin = binRef.orderByChild('name').equalTo(req.params.binID).once('value', snapshot =>{
                     snapshot.forEach(
                         function(ChildSnapshot){
                             let id = ChildSnapshot.key
