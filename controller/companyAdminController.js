@@ -146,8 +146,7 @@ class App {
         try{
             if(req.session.companyCode){
                 const companyAdmin = await CompanyAdmin.findOne({companyCode : req.session.companyCode})
-                
-                let allBin = binRef.orderByValue().on('value', snapshot =>{
+                let allBin = binRef.orderByChild('name').equalTo(req.params.binID).on('value', snapshot =>{
                     snapshot.forEach(
                         function(ChildSnapshot){
                             let id = ChildSnapshot.key
@@ -159,7 +158,6 @@ class App {
                     })
                     
                 })
-                
                 
             }else{
                 res.redirect(303, '/company/login')

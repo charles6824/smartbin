@@ -1,21 +1,19 @@
-// let getMap = document.getElementById('getMap')
-// let getLoc = getMap.innerHTML
-// let LatMap = getLoc.split(',')
-// let lat= letMap[0]
-// let lng= letMap[1]
-// const gpsd = {lat: `${lat}`, lng: `${lng}`}
-// const map = new google.maps.Map(document.getElementById("map"), {center: gpsd, zoom: 10,})
-// const marker = new google.maps.Marker({
-//     position: gpsd,
-//     map: map,
-// })
+let lat = document.getElementById('lat').value
+let lon = document.getElementById('lng').value
+let level = document.getElementById('level').value
 
-const gpsd = {lat: 9.008, lng: 23.095}
-const map = new google.maps.Map(document.getElementById("map"), {center: gpsd, zoom: 10,})
-const marker = new google.maps.Marker({
-    position: gpsd,
-    map: map,
-})
+//initialize map
+map = L.map('map').setView([lat, lon], 18);
 
-let getMap = document.getElementById('level')
-let getsMap = document.getElementById('rain')
+//set map tiles source
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+  maxZoom: 18,
+}).addTo(map);
+
+//add marker to the map
+marker = L.marker([lat, lon]).addTo(map);
+
+//add popup to the marker
+marker.bindPopup(`Bin Level: Level ${level}`).openPopup();
+

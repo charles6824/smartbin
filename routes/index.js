@@ -5,17 +5,6 @@ const router = express.Router();
 const CompanyAdmin = require('../model/companyAdmin')
 const admin = require('firebase-admin')
 const database = admin.database()
-const firebaseConfig = {
-    "apiKey": "AIzaSyAGvaBLvQAjJAMBLgZkRPYtkhBbgYnqaPU",
-    "authDomain": "finalbin-35e3c.firebaseapp.com",
-    "databaseURL": "https://finalbin-35e3c-default-rtdb.firebaseio.com",
-    "projectId": "finalbin-35e3c",
-    "storageBucket": "finalbin-35e3c.appspot.com",
-    "messagingSenderId": "887888512503",
-    "appId": "1:887888512503:web:b987d613ed083aee569af2",
-    "measurementId": "G-GX8J1JVNC5"
-  };
-const firebaseApp = firebase.initializeApp(firebaseConfig)
 
 
 const FileController = require('../controller/fileController')
